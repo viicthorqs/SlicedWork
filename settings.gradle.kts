@@ -24,4 +24,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "SlicedWork"
 include(":app")
- 
+include(":domain")
+include(":data")
+include(":core:designsystem")
+include(":feature:home")
+include(":feature:jobdetails")
