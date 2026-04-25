@@ -1,5 +1,6 @@
-package com.slicedwork.home.ui
+package com.slicedwork.home.ui.screenstate
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,10 +35,17 @@ import com.slicedwork.domain.model.Job
 import com.slicedwork.home.ui.preview.HomeJobPreviewData
 
 @Composable
-fun HomeJobList(jobs: List<Job>, modifier: Modifier = Modifier) {
+fun HomeSuccess(jobs: List<Job>, onJobClicked: (String) -> Unit, modifier: Modifier = Modifier) {
     LazyColumn(modifier = modifier) {
         items(jobs) { job ->
-            HomeJobCard(job, modifier = Modifier.fillMaxWidth())
+            HomeJobCard(
+                job = job,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        onJobClicked(job.id)
+                    }
+            )
             Spacer(modifier = Modifier.height(16.dp))
         }
     }
@@ -100,17 +108,18 @@ fun HomeJobCard(job: Job, modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun HomeJobListPreviewSurface(darkTheme: Boolean) {
+private fun HomeSuccessPreviewSurface(darkTheme: Boolean) {
     SlicedWorkTheme(darkTheme = darkTheme) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background,
         ) {
-            HomeJobList(
+            HomeSuccess(
                 jobs = HomeJobPreviewData.jobs,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(16.dp),
+                onJobClicked = { },
             )
         }
     }
@@ -118,8 +127,8 @@ private fun HomeJobListPreviewSurface(darkTheme: Boolean) {
 
 @Preview(name = "Jobs List Light")
 @Composable
-private fun PreviewHomeJobListLight() = HomeJobListPreviewSurface(darkTheme = false)
+private fun HomeSuccessLightPreview() = HomeSuccessPreviewSurface(darkTheme = false)
 
 @Preview(name = "Jobs List Dark")
 @Composable
-private fun PreviewHomeJobListDark() = HomeJobListPreviewSurface(darkTheme = true)
+private fun HomeSuccessDarkPreview() = HomeSuccessPreviewSurface(darkTheme = true)

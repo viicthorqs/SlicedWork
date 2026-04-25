@@ -1,4 +1,4 @@
-package com.slicedwork.home.ui
+package com.slicedwork.home.ui.screenstate
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
