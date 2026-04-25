@@ -26,8 +26,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 object SkeletonLoaderDefaults {
-    const val TransitionLabel = "designsystem_skeleton_pulse"
-    val PulseDurationMs = 900
+    const val TRANSITION_LABEL = "designsystem_skeleton_pulse"
+    const val PULSE_DURATION_MS = 900
     val LineCornerRadius = 4.dp
     val ImageCornerRadius = 8.dp
     val CardElevation = 6.dp
@@ -40,13 +40,13 @@ object SkeletonLoaderDefaults {
  */
 @Composable
 fun rememberSkeletonPulseColor(): Color {
-    val transition = rememberInfiniteTransition(label = SkeletonLoaderDefaults.TransitionLabel)
+    val transition = rememberInfiniteTransition(label = SkeletonLoaderDefaults.TRANSITION_LABEL)
     val t by transition.animateFloat(
         initialValue = 0f,
         targetValue = 1f,
         animationSpec = infiniteRepeatable(
             animation = tween(
-                durationMillis = SkeletonLoaderDefaults.PulseDurationMs,
+                durationMillis = SkeletonLoaderDefaults.PULSE_DURATION_MS,
                 easing = FastOutSlowInEasing,
             ),
             repeatMode = RepeatMode.Reverse,
