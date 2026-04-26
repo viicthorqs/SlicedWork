@@ -7,9 +7,10 @@ plugins {
 android {
     namespace = "com.slicedwork.slicedwork"
     compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
+        version =
+            release(36) {
+                minorApiLevel = 1
+            }
     }
 
     defaultConfig {
@@ -49,6 +50,7 @@ dependencies {
     implementation(project(":feature:jobdetails"))
 
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.compose.adaptive.navigation3)
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material.icons.extended)

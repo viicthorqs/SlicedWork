@@ -1,9 +1,11 @@
 package com.slicedwork.jobdetails.ui
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.slicedwork.jobdetails.presentation.JobDetailsIntent
 import com.slicedwork.jobdetails.presentation.JobDetailsUiState
@@ -16,8 +18,6 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun JobDetailsRoute(
     jobId: String,
-    onBackClick: () -> Unit,
-    modifier: Modifier = Modifier,
     viewModel: JobDetailsViewModel = koinViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -26,7 +26,7 @@ fun JobDetailsRoute(
         viewModel.onIntent(JobDetailsIntent.LoadJob(jobId))
     }
 
-    JobDetailsScreen(uiState = uiState, modifier = modifier)
+    JobDetailsScreen(uiState = uiState, modifier = Modifier.padding(16.dp))
 }
 
 @Composable
