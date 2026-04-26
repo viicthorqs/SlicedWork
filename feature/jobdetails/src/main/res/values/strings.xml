@@ -3,4 +3,5 @@
     <string name="job_details_description">Description</string>
     <string name="job_details_location">Location</string>
     <string name="job_details_category">Category</string>
+    <string name="job_details_placeholder">Select a job to seee the deails.</string>
 </resources>
