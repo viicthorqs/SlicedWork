@@ -1,10 +1,10 @@
 package com.slicedwork.slicedwork
 
 import android.app.Application
-import com.slicedwork.data.di.dataModule
-import com.slicedwork.domain.di.domainModule
-import com.slicedwork.home.di.homeModule
-import com.slicedwork.jobdetails.di.jobDetailsModule
+import com.slicedwork.data.di.DataModule
+import com.slicedwork.domain.di.DomainModule
+import com.slicedwork.home.di.HomeModule
+import com.slicedwork.jobdetails.di.JobDetailsModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
 
@@ -15,10 +15,10 @@ class SlicedWorkApplication: Application() {
         startKoin {
             androidContext(this@SlicedWorkApplication)
             modules(
-                domainModule,
-                dataModule,
-                homeModule,
-                jobDetailsModule,
+                DomainModule,
+                DataModule,
+                HomeModule,
+                JobDetailsModule,
             )
         }
     }
