@@ -17,8 +17,9 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomeRoute(
+    onNavigateToJobDetails: (String) -> Unit,
+    modifier: Modifier = Modifier,
     viewModel: HomeViewModel = koinViewModel(),
-    onNavigateToJobDetails: (String) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -36,7 +37,7 @@ fun HomeRoute(
         }
     }
 
-    HomeScreen(uiState = uiState, onIntent = viewModel::onIntent, modifier = Modifier)
+    HomeScreen(uiState = uiState, onIntent = viewModel::onIntent, modifier = modifier)
 }
 
 @Composable
@@ -46,7 +47,7 @@ fun HomeScreen(
     modifier: Modifier,
 ) {
     when (uiState) {
-        HomeUiState.Loading -> HomeLoading()
+        HomeUiState.Loading -> HomeLoading(modifier)
         is HomeUiState.Error -> HomeError(message = uiState.errorMessage)
         is HomeUiState.Success -> HomeSuccess(
             jobs = uiState.jobs,

@@ -8,9 +8,7 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -26,18 +24,12 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 object SkeletonLoaderDefaults {
-    const val TRANSITION_LABEL = "designsystem_skeleton_pulse"
+    const val TRANSITION_LABEL = "design_system_skeleton_pulse"
     const val PULSE_DURATION_MS = 900
     val LineCornerRadius = 4.dp
-    val ImageCornerRadius = 8.dp
     val CardElevation = 6.dp
 }
 
-/**
- * Cor pulsante **opaca**: interpola entre [ColorScheme.surfaceVariant] e [ColorScheme.outline].
- * (Em alguns temas, `outlineVariant` == `surfaceVariant` no dark — aí o pulse sumia.)
- * Evita `surfaceVariant.copy(alpha = …)` baixo, que em temas claros quase desaparece em `background`/`surface`.
- */
 @Composable
 fun rememberSkeletonPulseColor(): Color {
     val transition = rememberInfiniteTransition(label = SkeletonLoaderDefaults.TRANSITION_LABEL)
@@ -54,12 +46,9 @@ fun rememberSkeletonPulseColor(): Color {
         label = "skeletonPulse",
     )
     val scheme = MaterialTheme.colorScheme
-    return lerp(scheme.surfaceVariant, scheme.outline, t)
+    return lerp(scheme.surfaceContainer, scheme.surfaceContainerHighest, t)
 }
 
-/**
- * Faixa horizontal (título, texto, etc.). Largura vem do [modifier] (ex.: [Modifier.fillMaxWidth], [Modifier.width]).
- */
 @Composable
 fun SkeletonLine(
     modifier: Modifier = Modifier,
@@ -75,49 +64,15 @@ fun SkeletonLine(
     )
 }
 
-/**
- * Placeholder circular (avatar, ícone).
- */
-@Composable
-fun SkeletonCircle(
-    modifier: Modifier = Modifier,
-    color: Color = rememberSkeletonPulseColor(),
-) {
-    Box(
-        modifier
-            .clip(CircleShape)
-            .background(color),
-    )
-}
-
-/**
- * Placeholder retangular com cantos arredondados (imagem, thumbnail, bloco).
- */
-@Composable
-fun SkeletonImage(
-    modifier: Modifier = Modifier,
-    shape: Shape = RoundedCornerShape(SkeletonLoaderDefaults.ImageCornerRadius),
-    color: Color = rememberSkeletonPulseColor(),
-) {
-    Box(
-        modifier
-            .clip(shape)
-            .background(color),
-    )
-}
-
-/**
- * [Card] elevado para agrupar skeletons (lista, formulário, etc.).
- */
 @Composable
 fun SkeletonCard(
     modifier: Modifier = Modifier,
     elevation: Dp = SkeletonLoaderDefaults.CardElevation,
-    content: @Composable ColumnScope.() -> Unit,
+    color: Color = rememberSkeletonPulseColor(),
 ) {
     Card(
         modifier = modifier,
+        colors = CardDefaults.cardColors(containerColor = color),
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = elevation),
-        content = content,
-    )
+    ) {}
 }

@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SlicedWork</string>
+    <string name="error_state_default_title">Não foi possível carregar os dados</string>
+    <string name="error_state_default_message">Verifique a conexão e tente novamente.</string>
+    <string name="painting">Painting</string>
+    <string name="cleaning">Cleaning</string>
+    <string name="gardening">Gardening</string>
+    <string name="construction">Construction</string>
+    <string name="electric">Electric</string>
+    <string name="plumbing">Plumbing</string>
 </resources>
