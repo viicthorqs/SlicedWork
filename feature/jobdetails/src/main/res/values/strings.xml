@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="job_details_description">Description</string>
+    <string name="job_details_location">Location</string>
+    <string name="job_details_category">Category</string>
+</resources>

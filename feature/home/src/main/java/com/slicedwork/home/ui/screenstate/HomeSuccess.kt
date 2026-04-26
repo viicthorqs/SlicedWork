@@ -24,15 +24,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.slicedwork.designsystem.ext.asCurrency
-import com.slicedwork.designsystem.ext.painter
+import com.slicedwork.designsystem.ext.toPainterResource
 import com.slicedwork.designsystem.theme.SlicedWorkTheme
 import com.slicedwork.domain.model.Job
-import com.slicedwork.home.ui.preview.HomeJobPreviewData
+import com.slicedwork.home.ui.preview.HomePreviewData
 
 @Composable
 fun HomeSuccess(jobs: List<Job>, onJobClicked: (String) -> Unit, modifier: Modifier = Modifier) {
@@ -64,7 +65,7 @@ fun HomeJobCard(job: Job, modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
-                painter = job.category.painter(),
+                painter = painterResource(job.category.toPainterResource()),
                 contentDescription = null,
                 modifier = Modifier.size(56.dp),
                 tint = MaterialTheme.colorScheme.primary,
@@ -115,7 +116,7 @@ private fun HomeSuccessPreviewSurface(darkTheme: Boolean) {
             color = MaterialTheme.colorScheme.background,
         ) {
             HomeSuccess(
-                jobs = HomeJobPreviewData.jobs,
+                jobs = HomePreviewData.jobs,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(16.dp),
@@ -125,10 +126,10 @@ private fun HomeSuccessPreviewSurface(darkTheme: Boolean) {
     }
 }
 
-@Preview(name = "Jobs List Light")
+@Preview(name = "Home Success Light")
 @Composable
 private fun HomeSuccessLightPreview() = HomeSuccessPreviewSurface(darkTheme = false)
 
-@Preview(name = "Jobs List Dark")
+@Preview(name = "Home Success Dark")
 @Composable
 private fun HomeSuccessDarkPreview() = HomeSuccessPreviewSurface(darkTheme = true)

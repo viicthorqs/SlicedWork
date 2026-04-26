@@ -9,7 +9,7 @@ import com.slicedwork.domain.model.JobStatus
  * Dados só para previews Compose (`@Preview`) no módulo home.
  * Não precisa espelhar `FakeJobCatalog` no módulo data — duplicação intencional.
  */
-object HomeJobPreviewData {
+object HomePreviewData {
 
     val jobs: List<Job> = listOf(
         Job(

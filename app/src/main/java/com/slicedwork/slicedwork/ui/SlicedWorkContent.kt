@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
 import com.slicedwork.home.ui.HomeRoute
@@ -26,12 +27,16 @@ fun SlicedWorkContent(
                     HomeRoute(
                         onNavigateToJobDetails = { jobId ->
                             backStack.add(SlicedWorkRoute.JobDetails(jobId))
-                        }
+                        }, modifier = Modifier.padding(horizontal = 16.dp)
                     )
                 }
 
                 is SlicedWorkRoute.JobDetails -> NavEntry(route) {
-                    JobDetailsRoute(jobId = route.jobId, onBackClick = {})
+                    JobDetailsRoute(
+                        jobId = route.jobId,
+                        onBackClick = { backStack.remove(it) },
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    )
                 }
             }
         }
