@@ -21,7 +21,8 @@ fun SlicedWorkTopBar(
         title = {
             Text(
                 text = when (currentRoute) {
-                    SlicedWorkRoute.Home -> "SlicedWork"
+                    SlicedWorkRoute.Home -> "Categorias"
+                    is SlicedWorkRoute.JobList -> "Lista de bicos"
                     is SlicedWorkRoute.JobDetails -> "Detalhes do bico"
                     null -> ""
                 }

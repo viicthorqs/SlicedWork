@@ -7,6 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.slicedwork.domain.model.JobCategory
 import com.slicedwork.home.presentation.HomeEffect
 import com.slicedwork.home.presentation.HomeIntent
 import com.slicedwork.home.presentation.HomeUiState
@@ -14,25 +15,25 @@ import com.slicedwork.home.presentation.HomeViewModel
 import com.slicedwork.home.ui.screenstate.HomeError
 import com.slicedwork.home.ui.screenstate.HomeLoading
 import com.slicedwork.home.ui.screenstate.HomeSuccess
-import kotlinx.coroutines.Job
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomeRoute(
-    onNavigateToJobDetails: (String) -> Unit,
+    gridColumns: Int,
+    onNavigateToJobList: (JobCategory) -> Unit,
     viewModel: HomeViewModel = koinViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.onIntent(HomeIntent.LoadJobs)
+        viewModel.onIntent(HomeIntent.LoadJobCategories)
     }
 
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
             when (effect) {
-                is HomeEffect.NavigateToJobDetails -> {
-                    onNavigateToJobDetails(effect.jobId)
+                is HomeEffect.NavigateToJobList -> {
+                    onNavigateToJobList(effect.jobCategory)
                 }
             }
         }
@@ -40,6 +41,7 @@ fun HomeRoute(
 
     HomeScreen(
         uiState = uiState,
+        gridColumns = gridColumns,
         onIntent = viewModel::onIntent,
         modifier = Modifier.padding(16.dp)
     )
@@ -48,15 +50,21 @@ fun HomeRoute(
 @Composable
 fun HomeScreen(
     uiState: HomeUiState,
-    onIntent: (HomeIntent) -> Job,
-    modifier: Modifier,
+    onIntent: (HomeIntent) -> Unit,
+    gridColumns: Int,
+    modifier: Modifier
 ) {
     when (uiState) {
-        HomeUiState.Loading -> HomeLoading(modifier)
+        HomeUiState.Loading -> HomeLoading(gridColumns = gridColumns, modifier = modifier)
         is HomeUiState.Error -> HomeError(message = uiState.errorMessage)
         is HomeUiState.Success -> HomeSuccess(
-            jobs = uiState.jobs,
-            onJobClicked = { jobId -> onIntent(HomeIntent.JobClicked(jobId = jobId)) },
+            jobCategories = uiState.jobCategories,
+            gridColumns = gridColumns,
+            onJobCategoryClicked = { jobCategory ->
+                onIntent(
+                    HomeIntent.JobCategoryClicked(jobCategory = jobCategory)
+                )
+            },
             modifier = modifier
         )
     }

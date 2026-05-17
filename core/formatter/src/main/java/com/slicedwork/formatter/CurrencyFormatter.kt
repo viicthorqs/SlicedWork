@@ -1,4 +1,4 @@
-package com.slicedwork.designsystem.ext
+package com.slicedwork.formatter
 
 import java.text.NumberFormat
 

@@ -24,16 +24,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.slicedwork.designsystem.ext.asCurrency
-import com.slicedwork.designsystem.ext.toPainterResource
-import com.slicedwork.designsystem.ext.toStringResource
 import com.slicedwork.designsystem.theme.SlicedWorkTheme
 import com.slicedwork.domain.model.Job
+import com.slicedwork.formatter.asCurrency
 import com.slicedwork.jobdetails.R
 import com.slicedwork.jobdetails.ui.preview.JobDetailsPreviewData
+import com.slicedwork.ui.toUi
 
 @Composable
 fun JobDetailsSuccess(job: Job, modifier: Modifier = Modifier) {
+    val jobCategoryUi = job.category.toUi()
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -62,14 +63,14 @@ fun JobDetailsSuccess(job: Job, modifier: Modifier = Modifier) {
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Icon(
-                    painter = painterResource(job.category.toPainterResource()),
+                    painter = painterResource(jobCategoryUi.imageRes),
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(32.dp)
                 )
 
                 Text(
-                    text = stringResource(job.category.toStringResource()),
+                    text = stringResource(jobCategoryUi.stringRes),
                     style = MaterialTheme.typography.bodyLarge
                 )
             }

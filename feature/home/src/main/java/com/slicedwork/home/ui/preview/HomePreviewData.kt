@@ -53,4 +53,14 @@ object HomePreviewData {
             status = JobStatus.OPEN,
         ),
     )
+
+    val jobCategories = listOf(
+        JobCategory.PAINTING,
+        JobCategory.CLEANING,
+        JobCategory.GARDENING,
+        JobCategory.CONSTRUCTION,
+        JobCategory.ELECTRIC,
+        JobCategory.PLUMBING,
+        JobCategory.ANY,
+    )
 }
