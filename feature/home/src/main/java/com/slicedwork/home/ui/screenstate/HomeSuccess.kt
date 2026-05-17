@@ -75,14 +75,14 @@ fun JobCategoryItem(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
-                painter = painterResource(jobCategoryUi.imageRes),
-                contentDescription = stringResource(jobCategoryUi.stringRes),
+                painter = painterResource(jobCategoryUi.iconRes),
+                contentDescription = stringResource(jobCategoryUi.titleRes),
                 modifier = Modifier.size(56.dp),
                 tint = MaterialTheme.colorScheme.primary,
             )
 
             Text(
-                text = stringResource(jobCategoryUi.stringRes),
+                text = stringResource(jobCategoryUi.titleRes),
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.primary,
                 textAlign = TextAlign.Center

@@ -19,20 +19,22 @@ class JobDetailsViewModel(private val getJobUseCase: GetJobUseCase) : ViewModel(
         is JobDetailsIntent.LoadJob -> loadJob(intent.jobId)
     }
 
-    private fun loadJob(jobId: String) = viewModelScope.launch {
-        _uiState.value = JobDetailsUiState.Loading
+    private fun loadJob(jobId: String) {
+        viewModelScope.launch {
+            _uiState.value = JobDetailsUiState.Loading
 
-        delay(2000)
+            delay(2000)
 
-        runCatching {
-            getJobUseCase(jobId = jobId)
-        }.onSuccess { job ->
-            _uiState.update {
-                job?.let { JobDetailsUiState.Success(job = job) }
-                    ?: JobDetailsUiState.Error("Job has not been founded!")
+            runCatching {
+                getJobUseCase(jobId = jobId)
+            }.onSuccess { job ->
+                _uiState.update {
+                    job?.let { JobDetailsUiState.Success(job = job) }
+                        ?: JobDetailsUiState.Error("Job has not been founded!")
+                }
+            }.onFailure { error ->
+                _uiState.update { JobDetailsUiState.Error(error.message.toString()) }
             }
-        }.onFailure { error ->
-            _uiState.update { JobDetailsUiState.Error(error.message.toString()) }
         }
     }
 }

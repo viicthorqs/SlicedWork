@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="top_bar_home_title">Categorias</string>
+    <string name="top_bar_job_list_title">Lista de bicos</string>
+    <string name="top_bar_job_details_title">Detalhes do bico</string>
+    <string name="content_description_back">Voltar</string>
+</resources>

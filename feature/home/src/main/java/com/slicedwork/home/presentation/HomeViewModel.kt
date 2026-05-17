@@ -3,6 +3,7 @@ package com.slicedwork.home.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.slicedwork.domain.usecase.GetJobCategoriesUseCase
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,21 +22,25 @@ class HomeViewModel(private val getJobCategoriesUseCase: GetJobCategoriesUseCase
 
     fun onIntent(intent: HomeIntent) = when (intent) {
         HomeIntent.LoadJobCategories -> loadJobCategories()
-        is HomeIntent.JobCategoryClicked -> {
-            viewModelScope.launch {
-                _effect.emit(HomeEffect.NavigateToJobList(intent.jobCategory))
-            }
+        is HomeIntent.JobCategoryClicked -> navigateToJobList(intent)
+    }
+
+    private fun loadJobCategories() {
+        viewModelScope.launch {
+            _uiState.update { HomeUiState.Loading }
+            delay(1000)
+            runCatching { getJobCategoriesUseCase() }
+                .onSuccess { jobCategories ->
+                    _uiState.update { HomeUiState.Success(jobCategories = jobCategories) }
+                }.onFailure { error ->
+                    _uiState.update { HomeUiState.Error(error.message.toString()) }
+                }
         }
     }
 
-    private fun loadJobCategories() = viewModelScope.launch {
-        _uiState.update { HomeUiState.Loading }
-        delay(1000)
-        runCatching { getJobCategoriesUseCase() }
-            .onSuccess { jobCategories ->
-                _uiState.update { HomeUiState.Success(jobCategories = jobCategories) }
-            }.onFailure { error ->
-                _uiState.update { HomeUiState.Error(error.message.toString()) }
-            }
+    private fun navigateToJobList(intent: HomeIntent.JobCategoryClicked) {
+        viewModelScope.launch {
+            _effect.emit(HomeEffect.NavigateToJobList(intent.jobCategory))
+        }
     }
 }

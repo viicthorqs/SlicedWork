@@ -18,15 +18,12 @@ import com.slicedwork.slicedwork.SlicedWorkRoute
 fun SlicedWorkApp() {
     val backStack = remember { mutableStateListOf<SlicedWorkRoute>(SlicedWorkRoute.Home) }
     val listDetailStrategy = rememberListDetailSceneStrategy<SlicedWorkRoute>()
-
     val isCompact = !currentWindowAdaptiveInfo()
         .windowSizeClass
         .isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND)
     val currentRoute = backStack.lastOrNull()
     val canNavigateBack = backStack.size > 1
-    val onBack: () -> Unit = {
-        backStack.navigateBack(isCompact = isCompact)
-    }
+    val onBack: () -> Unit = { backStack.navigateBack(isCompact = isCompact) }
 
     Scaffold(
         topBar = {

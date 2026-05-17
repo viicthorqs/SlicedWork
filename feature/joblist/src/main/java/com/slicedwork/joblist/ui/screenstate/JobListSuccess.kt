@@ -67,7 +67,7 @@ fun JobListJobCard(job: Job, modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
-                painter = painterResource(jobCategoryUi.imageRes),
+                painter = painterResource(jobCategoryUi.iconRes),
                 contentDescription = null,
                 modifier = Modifier.size(56.dp),
                 tint = MaterialTheme.colorScheme.primary,

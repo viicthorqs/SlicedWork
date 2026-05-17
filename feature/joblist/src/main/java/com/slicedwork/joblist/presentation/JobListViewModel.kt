@@ -14,7 +14,8 @@ import kotlinx.coroutines.launch
 
 class JobListViewModel(private val getJobsUseCase: GetJobsUseCase) : ViewModel() {
 
-    private val _uiState: MutableStateFlow<JobListUiState> = MutableStateFlow(JobListUiState.Loading)
+    private val _uiState: MutableStateFlow<JobListUiState> =
+        MutableStateFlow(JobListUiState.Loading)
     val uiState: StateFlow<JobListUiState> get() = _uiState
 
     private val _effect = MutableSharedFlow<JobListEffect>()
@@ -22,21 +23,25 @@ class JobListViewModel(private val getJobsUseCase: GetJobsUseCase) : ViewModel()
 
     fun onIntent(intent: JobListIntent) = when (intent) {
         is JobListIntent.LoadJobs -> loadJobs(intent.jobCategory)
-        is JobListIntent.JobClicked -> {
-            viewModelScope.launch {
-                _effect.emit(JobListEffect.NavigateToJobDetails(intent.jobId))
-            }
+        is JobListIntent.JobClicked -> navigateToJobDetails(intent)
+    }
+
+    private fun loadJobs(jobCategory: JobCategory) {
+        viewModelScope.launch {
+            _uiState.update { JobListUiState.Loading }
+            delay(1000)
+            runCatching { getJobsUseCase(jobCategory) }
+                .onSuccess { jobs ->
+                    _uiState.update { JobListUiState.Success(jobs = jobs) }
+                }.onFailure { error ->
+                    _uiState.update { JobListUiState.Error(error.message.toString()) }
+                }
         }
     }
 
-    private fun loadJobs(jobCategory: JobCategory) = viewModelScope.launch {
-        _uiState.update { JobListUiState.Loading }
-        delay(1000)
-        runCatching { getJobsUseCase(jobCategory) }
-            .onSuccess { jobs ->
-                _uiState.update { JobListUiState.Success(jobs = jobs) }
-            }.onFailure { error ->
-                _uiState.update { JobListUiState.Error(error.message.toString()) }
-            }
+    private fun navigateToJobDetails(intent: JobListIntent.JobClicked) {
+        viewModelScope.launch {
+            _effect.emit(JobListEffect.NavigateToJobDetails(intent.jobId))
+        }
     }
 }

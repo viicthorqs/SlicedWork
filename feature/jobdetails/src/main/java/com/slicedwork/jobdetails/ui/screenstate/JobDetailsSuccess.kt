@@ -63,14 +63,14 @@ fun JobDetailsSuccess(job: Job, modifier: Modifier = Modifier) {
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Icon(
-                    painter = painterResource(jobCategoryUi.imageRes),
+                    painter = painterResource(jobCategoryUi.iconRes),
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(32.dp)
                 )
 
                 Text(
-                    text = stringResource(jobCategoryUi.stringRes),
+                    text = stringResource(jobCategoryUi.titleRes),
                     style = MaterialTheme.typography.bodyLarge
                 )
             }

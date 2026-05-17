@@ -29,7 +29,7 @@ fun JobListRoute(
         viewModel.onIntent(JobListIntent.LoadJobs(jobCategory))
     }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(jobCategory) {
         viewModel.effect.collect { effect ->
             when (effect) {
                 is JobListEffect.NavigateToJobDetails -> onNavigateToJobDetails(effect.jobId)
