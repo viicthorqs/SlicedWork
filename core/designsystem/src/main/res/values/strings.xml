@@ -9,4 +9,5 @@
     <string name="construction">Construction</string>
     <string name="electric">Electric</string>
     <string name="plumbing">Plumbing</string>
+    <string name="any">Any</string>
 </resources>

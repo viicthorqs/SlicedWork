@@ -12,6 +12,7 @@ fun JobCategory.toPainterResource() = when (this) {
     JobCategory.CONSTRUCTION -> R.drawable.ic_construction
     JobCategory.ELECTRIC -> R.drawable.ic_electric
     JobCategory.PLUMBING -> R.drawable.ic_plumbing
+    JobCategory.ANY -> R.drawable.ic_any
 }
 
 @Composable
@@ -22,4 +23,5 @@ fun JobCategory.toStringResource() = when (this) {
     JobCategory.CONSTRUCTION -> R.string.construction
     JobCategory.ELECTRIC -> R.string.electric
     JobCategory.PLUMBING -> R.string.plumbing
+    JobCategory.ANY -> R.string.any
 }

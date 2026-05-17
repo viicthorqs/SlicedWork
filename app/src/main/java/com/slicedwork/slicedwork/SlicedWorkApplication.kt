@@ -5,6 +5,7 @@ import com.slicedwork.data.di.DataModule
 import com.slicedwork.domain.di.DomainModule
 import com.slicedwork.home.di.HomeModule
 import com.slicedwork.jobdetails.di.JobDetailsModule
+import com.slicedwork.joblist.di.JobListModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
 
@@ -18,6 +19,7 @@ class SlicedWorkApplication: Application() {
                 DomainModule,
                 DataModule,
                 HomeModule,
+                JobListModule,
                 JobDetailsModule,
             )
         }

@@ -37,6 +37,7 @@ fun SlicedWorkApp() {
             SlicedWorkContent(
                 sceneStrategies = listOf(listDetailStrategy),
                 backStack = backStack,
+                isCompact = isCompact,
                 innerPadding = innerPadding
             )
         }

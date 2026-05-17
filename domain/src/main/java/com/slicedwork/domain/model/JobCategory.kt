@@ -7,4 +7,5 @@ enum class JobCategory {
     CONSTRUCTION,
     ELECTRIC,
     PLUMBING,
+    ANY,
 }

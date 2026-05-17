@@ -47,6 +47,7 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":feature:home"))
+    implementation(project(":feature:joblist"))
     implementation(project(":feature:jobdetails"))
 
     implementation(libs.androidx.activity.compose)
